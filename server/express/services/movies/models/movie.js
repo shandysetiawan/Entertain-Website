@@ -10,12 +10,10 @@ class MovieModel {
     }
 
     static create(newData) {
-        console.log('>>>>', movieCollection)
-        console.log('>>>>', Movie)
         return Movie.insertOne(newData)
     }
 
-    static getByID(id) {
+    static getById(id) {
         return Movie.findOne({ _id: ObjectId(id) })
     }
 

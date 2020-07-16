@@ -1,12 +1,12 @@
-const Movie = require('../models/movie')
+const TVSeries = require('../models/tv_series')
 
-class MoviesController {
+class TVSeriesController {
 
-    static fetchMovies(req, res, next) {
+    static fetchTVSeries(req, res, next) {
 
-        Movie.find()
+        TVSeries.find()
             .then((data) => {
-                console.log('hit movies')
+                console.log('hit tv')
                 res.status(200).json(data)
             })
             .catch((err) => {
@@ -16,17 +16,17 @@ class MoviesController {
     }
 
 
-    static addMovie(req, res, next) {
+    static addTVSeries(req, res, next) {
 
-        const newMovie = {
+        const editTVSeries = {
             title: String(req.body.title),
             overview: String(req.body.overview),
             poster_path: (req.body.poster_path),
-            popularity: '',
-            tags: []
+            popularity: req.body.popularity,
+            tags: req.body.tags
         }
 
-        Movie.create(newMovie)
+        TVSeries.create(editTVSeries)
             .then((data) => {
                 res.status(201).json(data.ops[0])
             })
@@ -36,11 +36,11 @@ class MoviesController {
 
     }
 
-    static getMovieById(req, res, next) {
+    static getTVSeriesById(req, res, next) {
 
-        const movieId = req.params.movie_id
+        const tvId = req.params.tv_id
 
-        Movie.getById(movieId)
+        TVSeries.getById(tvId)
             .then((data) => {
                 res.status(200).json(data)
             })
@@ -50,20 +50,19 @@ class MoviesController {
 
     }
 
-    static updateMovie(req, res, next) {
+    static updateTVSeries(req, res, next) {
 
-        const movieId = req.params.movie_id
+        const tvId = req.params.tv_id
 
-        const editMovie = {
+        const editTVSeries = {
             title: String(req.body.title),
             overview: String(req.body.overview),
             poster_path: String(req.body.poster_path),
             popularity: req.body.popularity,
             tags: req.body.tags
         }
-        console.log(editMovie)
 
-        Movie.updateById(movieId, editMovie)
+        TVSeries.updateById(tvId, editTVSeries)
             .then((data) => {
                 res.status(201).json(data)
             })
@@ -73,11 +72,11 @@ class MoviesController {
 
     }
 
-    static removeMovie(req, res, next) {
+    static removeTVSeries(req, res, next) {
 
-        const movieId = req.params.movie_id
+        const tvId = req.params.tv_id
 
-        Movie.removeById(movieId)
+        TVSeries.removeById(tvId)
             .then((data) => {
                 res.status(201).json(data)
             })
@@ -90,4 +89,4 @@ class MoviesController {
 
 }
 
-module.exports = MoviesController
+module.exports = TVSeriesController
