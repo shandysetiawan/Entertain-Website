@@ -6,7 +6,7 @@ class MoviesController {
 
         Movie.find()
             .then((data) => {
-                console.log('hit movies')
+                // console.log('hit movies')
                 res.status(200).json(data)
             })
             .catch((err) => {
@@ -22,8 +22,8 @@ class MoviesController {
             title: String(req.body.title),
             overview: String(req.body.overview),
             poster_path: (req.body.poster_path),
-            popularity: '',
-            tags: []
+            popularity: req.body.popularity,
+            tags: req.body.tags
         }
 
         Movie.create(newMovie)
@@ -61,7 +61,7 @@ class MoviesController {
             popularity: req.body.popularity,
             tags: req.body.tags
         }
-        console.log(editMovie)
+        // console.log(editMovie)
 
         Movie.updateById(movieId, editMovie)
             .then((data) => {

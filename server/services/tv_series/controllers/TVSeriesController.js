@@ -6,7 +6,7 @@ class TVSeriesController {
 
         TVSeries.find()
             .then((data) => {
-                console.log('hit tv')
+                // console.log('hit tv')
                 res.status(200).json(data)
             })
             .catch((err) => {
@@ -18,7 +18,7 @@ class TVSeriesController {
 
     static addTVSeries(req, res, next) {
 
-        const editTVSeries = {
+        const addTV = {
             title: String(req.body.title),
             overview: String(req.body.overview),
             poster_path: (req.body.poster_path),
@@ -26,7 +26,8 @@ class TVSeriesController {
             tags: req.body.tags
         }
 
-        TVSeries.create(editTVSeries)
+
+        TVSeries.create(addTV)
             .then((data) => {
                 res.status(201).json(data.ops[0])
             })

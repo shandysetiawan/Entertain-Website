@@ -1,6 +1,15 @@
 const router = require('express').Router()
-const entertainMeController = require('../controllers/entertainMeController')
+const tvSeriesController = require('../controllers/tvSeriesController')
 
-router.get('/entertainme', entertainMeController.fetchMoviesSeries)
+router.get('/', tvSeriesController.fetchtvSeries)
+
+router.post('/', tvSeriesController.addTvSeries)
+
+router.get('/:tv_id', tvSeriesController.getOneTvSeries)
+
+router.put('/:tv_id', tvSeriesController.updateTvSeries)
+
+router.delete('/:tv_id', tvSeriesController.deleteTvSeries)
+
 
 module.exports = router
