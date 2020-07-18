@@ -18,6 +18,8 @@ class MoviesController {
 
     static addMovie(req, res, next) {
 
+        // console.log(req.body)
+
         const newMovie = {
             title: String(req.body.title),
             overview: String(req.body.overview),
@@ -37,6 +39,8 @@ class MoviesController {
     }
 
     static getMovieById(req, res, next) {
+
+        // console.log(req.params)
 
         const movieId = req.params.movie_id
 
