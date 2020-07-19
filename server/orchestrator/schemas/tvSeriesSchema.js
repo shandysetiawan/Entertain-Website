@@ -51,7 +51,7 @@ const resolvers = {
                 return JSON.parse(cacheTV)
 
             } else {
-                console.log('kseini terus?')
+                // console.log('kseini terus?')
                 try {
                     const tvData = await axios.get(`${baseURL}/tv_series`)
 
@@ -68,7 +68,7 @@ const resolvers = {
         getOnetvSeries: async (parent, args, context, info) => {
 
             try {
-                console.log('>>>>>>>>>>>', args)
+                // console.log('>>>>>>>>>>>', args)
                 const tvSeriesData = await axios.get(`${baseURL}/tv_series/${args.id}`)
 
                 return tvSeriesData.data
@@ -146,11 +146,6 @@ const resolvers = {
             }
 
         },
-
-
-
-
-
 
     }
 }

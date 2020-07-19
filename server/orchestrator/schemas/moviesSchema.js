@@ -23,7 +23,7 @@ input InputMovie {
     title: String
     overview: String
     poster_path: String
-    popularity: Float
+    popularity: String
     tags: String
   }
 
@@ -46,12 +46,12 @@ const resolvers = {
             const cacheMovies = await redis.get('moviesCache')
 
             if (cacheMovies) {
-                console.log('pernah kesini ga')
-                console.log(cacheMovies)
+                // console.log('pernah kesini ga')
+                // console.log(cacheMovies)
                 return JSON.parse(cacheMovies)
 
             } else {
-                console.log('kseini terus?')
+                // console.log('kseini terus?')
                 try {
                     const moviesData = await axios.get(`${baseURL}/movies`)
 
@@ -68,7 +68,7 @@ const resolvers = {
         getMovie: async (parent, args, context, info) => {
 
             try {
-                console.log('>>>>>>>>>>>', args)
+                // console.log('>>>>>>>>>>>', args)
                 const movieData = await axios.get(`${baseURL}/movies/${args.id}`)
 
                 return movieData.data
@@ -83,7 +83,7 @@ const resolvers = {
         addMovie: async (parent, args, context, info) => {
 
             // console.log(args.movie.title)
-
+            // console.log(args)
             const newMovie = {
                 title: String(args.movie.title),
                 overview: String(args.movie.overview),
@@ -133,7 +133,7 @@ const resolvers = {
 
             // console.log(args.movie.title)
             const movieId = args.id
-
+            // console.log('>>>>>>>>>>>', movieId)
             try {
                 // console.log('>>>>>>>>>>>', args)
                 const removeData = await axios.delete(`${baseURL}/movies/${movieId}`)
