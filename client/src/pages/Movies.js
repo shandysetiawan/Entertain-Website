@@ -2,8 +2,11 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import { gql, useQuery } from '@apollo/client'
 import { Link } from 'react-router-dom'
+// import { favMovies } from '../config/graphql'
+import client, { GET_FAVS } from '../config/graphql'
+import Swal from 'sweetalert2'
 
-const GET_MOVIES = gql`
+export const GET_MOVIES = gql`
 query{
     getMovies{
     _id
@@ -18,8 +21,44 @@ query{
 
 export default function Movies() {
     const { loading, error, data: movies } = useQuery(GET_MOVIES)
+    // const { data: currentfavs } = useQuery(GET_FAVS)
 
-    function clickDetail(id) {
+    const { favmovies } = client.readQuery({ query: GET_FAVS })
+
+    // function addFav(datamovie) {
+
+    //     const found = favMovies().find(element => element._id === datamovie._id)
+
+    //     if (found) {
+    //         Swal.fire('OOPS...', 'You already add this movie to your favorite!', 'warning')
+
+    //     } else {
+    //         // let currentStore = favMovies([...currentStore, datamovie])
+    //         favMovies().push(datamovie)
+    //         // favMovies().concat(datamovie)
+
+    //         Swal.fire('Success!', 'Success added movie to My Favorites', 'success')
+    //     }
+
+    // }
+
+    function addFav(datamovie) {
+
+        const found = favmovies.find(element => element._id === datamovie._id)
+
+        if (found) {
+            Swal.fire('OOPS...', 'You already add this movie to your favorite!', 'warning')
+
+        } else {
+            client.writeQuery({
+                query: GET_FAVS,
+                data: {
+                    favmovies: [...favmovies, datamovie]
+                }
+            })
+
+            Swal.fire('Success!', 'Success added movie to My Favorites', 'success')
+        }
 
     }
 
@@ -53,11 +92,18 @@ export default function Movies() {
                                     className="mt-5 bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                                     type="button"
                                     style={{ transition: "all .15s ease" }}
-                                    onClick={() => clickDetail(movie._id)}
                                 >
                                     Detail
       </button>
                             </Link>
+                            <button
+                                className="mt-5 bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                                type="button"
+                                style={{ transition: "all .15s ease" }}
+                                onClick={() => addFav(movie)}
+                            >
+                                Add to Fav
+      </button>
                         </div>
                         <div className="px-6 py-4">
                             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#photography</span>

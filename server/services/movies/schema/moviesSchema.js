@@ -1,3 +1,4 @@
+require('dotenv').config()
 const db = require('../configs/mongodb')
 
 const executed = (db, callback) => {

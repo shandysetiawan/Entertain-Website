@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import tvSeries from './pages/tvSeries'
 import movieDetail from './pages/movieDetail';
 import addMovie from './pages/addMovie';
+import AddFav from './pages/addFav';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           <Switch>
             <Route exact path="/movies" component={Movies} />
             <Route exact path="/tv-series" component={tvSeries} />
-
+            <Route exact path="/movies/favMovies" component={AddFav} />
             <Route exact path="/movies/addMovie" component={addMovie} />
             <Route exact path="/movies/:id" component={movieDetail} />
             <Route path="/" component={Home} />

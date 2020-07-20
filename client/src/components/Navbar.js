@@ -35,6 +35,12 @@ export default function Navbar() {
                     }}>
                         TV Series
                     </NavLink>
+                    <NavLink exact to='/movies/favMovies' activeStyle={{
+                        fontWeight: "bold",
+                        color: "red"
+                    }}>
+                        Favorite Movies
+                    </NavLink>
 
                 </div>
                 <div>

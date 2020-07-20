@@ -107,6 +107,7 @@ const resolvers = {
         editMovie: async (parent, args, context, info) => {
 
             // console.log(args.movie.title)
+            console.log(args)
             const movieId = args.id
 
             const updateMovie = {
