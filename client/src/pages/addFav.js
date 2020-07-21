@@ -35,7 +35,7 @@ export default function AddFav() {
                 {movies.favmovies.map((movie) => {
                     return <div className="image bg-white rounded-lg shadow-lg overflow-hidden">
                         <Link to={`/movies/${movie._id}`}>
-                            <img src={movie.poster_path} alt="Contact with Customer support" className="w-full" style={{ width: "500px", height: "200px" }} title="Contact with Customer support" />
+                            <img src={movie.poster_path} alt={movie.title} className="w-full" style={{ width: "500px", height: "200px" }} title="Contact with Customer support" />
                             <span className="text-center p-2 text-gray-700 text-sm inline-block w-full text-bold">{movie.title}</span>
                         </Link>
                     </div>

@@ -64,9 +64,19 @@ export default function Movies() {
 
     }
 
+    if (loading) {
+        return (<>
+            <Navbar></Navbar>
+        loading...
+        </>)
+    }
 
-    if (loading) return <>Loading......</>
-    if (error) return <>Error.....{JSON.stringify(error)}.</>
+    if (movies.getMovies.length === 0) {
+        return (<>
+            <Navbar></Navbar>
+    No Movies data yet, please input first
+        </>)
+    }
 
 
     return (

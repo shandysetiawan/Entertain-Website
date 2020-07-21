@@ -27,7 +27,13 @@ query{
 export default function Home() {
     const { loading, error, data: dataAll } = useQuery(GET_ALL)
 
-    if (loading) return <>Loading......</>
+    if (loading) {
+        return (<>
+            <Navbar></Navbar>
+        loading...
+        </>)
+    }
+
     return (
         <>
             <Navbar></Navbar>

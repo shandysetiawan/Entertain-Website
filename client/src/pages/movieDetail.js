@@ -82,6 +82,15 @@ export default function MovieDetail() {
 
     return (<>
         <Navbar />
+        <Link to={`/movies`}>
+            <button
+                className="mt-5 bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                type="button"
+                style={{ transition: "all .15s ease" }}
+            >
+                Go Back
+      </button>
+        </Link>
         <div className="md:flex shadow-lg mx-6 md:mx-auto my-40 max-w-lg md:max-w-2xl h-64">
             <img className="h-full w-full md:w-1/3  object-cover rounded-lg rounded-r-none pb-5/6" src={movie.getMovie.poster_path} alt="bag" />
             <div className="w-full md:w-2/3 px-4 py-4 bg-white rounded-lg">
