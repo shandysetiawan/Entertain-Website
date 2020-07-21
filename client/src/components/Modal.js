@@ -1,25 +1,27 @@
 import React, { useState, forwardRef, useImperativeHandle } from "react";
-import { useHistory, Link } from "react-router-dom";
 import { gql, useMutation } from '@apollo/client'
 import { GET_MOVIE } from '../pages/movieDetail'
 
 
 const EDIT_MOVIE = gql`
-mutation EditMovie($id: String, $updateMovie:InputMovie){
-    editMovie(id: $id, movie:$updateMovie){
-status
+mutation editone($id: String, $movie:InputMovie){
+    editMovie(id: $id, movie:$movie){
+ status
     }
 }
 `
 
 const Modal = forwardRef((props, ref) => {
-    const history = useHistory()
     const [movieTitle, setTitle] = useState("")
     const [movieOverview, setOverview] = useState("")
     const [moviePopularity, setPopularity] = useState("")
     const [movieTags, setTags] = useState("")
     const [moviePoster, setPoster] = useState("")
-    const [editMovie, { data }] = useMutation(EDIT_MOVIE, { refetchQueries: [{ query: GET_MOVIE }] });
+    const [editMovie, { data, error }] = useMutation(EDIT_MOVIE,
+        {
+            refetchQueries: [{ query: GET_MOVIE, variables: { _id: props.movie.getMovie._id } }],
+            onCompleted: () => { hideForm() }
+        });
 
     const [showModal, setShowModal] = useState(false);
 
@@ -27,12 +29,13 @@ const Modal = forwardRef((props, ref) => {
         setTitle(props.movie.getMovie.title);
         setOverview(props.movie.getMovie.overview);
         setPopularity(props.movie.getMovie.popularity);
-        setTags(props.movie.getMovie.popularity);
+        setTags(props.movie.getMovie.tags);
         setPoster(props.movie.getMovie.poster_path)
         setShowModal(true);
     };
 
-    const hideForm = () => {
+    const hideForm = (e) => {
+        // e.preventDefault()
         setShowModal(false);
     };
 
@@ -43,28 +46,27 @@ const Modal = forwardRef((props, ref) => {
         };
     });
 
-    async function handleSubmit(event) {
+    function handleSubmit(event) {
         event.preventDefault()
 
         const editData = {
             title: movieTitle,
             overview: movieOverview,
-            popularity: moviePopularity,
             poster_path: moviePoster,
+            popularity: moviePopularity,
             tags: movieTags
         }
         const id = props.movie.getMovie._id
-        console.log(editData)
-        console.log(id)
-        console.log(await editMovie())
+
+        // console.log(await editMovie())
         editMovie({
             variables: {
-                updateMovie: editData,
+                movie: editData,
                 id: id
             },
         })
-
-        history.push('/movies')
+        console.log(data)
+        console.log(error)
     }
 
 

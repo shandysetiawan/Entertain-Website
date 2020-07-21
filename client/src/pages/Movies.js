@@ -21,9 +21,9 @@ query{
 
 export default function Movies() {
     const { loading, error, data: movies } = useQuery(GET_MOVIES)
-    // const { data: currentfavs } = useQuery(GET_FAVS)
+    // const { data } = useQuery(GET_FAVS)
 
-    const { favmovies } = client.readQuery({ query: GET_FAVS })
+
 
     // function addFav(datamovie) {
 
@@ -43,6 +43,7 @@ export default function Movies() {
     // }
 
     function addFav(datamovie) {
+        const { favmovies } = client.readQuery({ query: GET_FAVS })
 
         const found = favmovies.find(element => element._id === datamovie._id)
 
@@ -53,6 +54,7 @@ export default function Movies() {
             client.writeQuery({
                 query: GET_FAVS,
                 data: {
+                    // favmovies
                     favmovies: [...favmovies, datamovie]
                 }
             })
@@ -64,6 +66,8 @@ export default function Movies() {
 
 
     if (loading) return <>Loading......</>
+    if (error) return <>Error.....{JSON.stringify(error)}.</>
+
 
     return (
         <>
@@ -80,8 +84,8 @@ export default function Movies() {
 
             <div className="grid grid-cols-3 gap-4">
                 {movies.getMovies.map((movie) => {
-                    return <div className="max-w-sm rounded overflow-hidden shadow-lg mt-5" key={movie._id}>
-                        <img className="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains" />
+                    return <div className="max-w-sm rounded overflow-hidden shadow-lg mt-5 bg-white" key={movie._id}>
+                        <img className="w-full" style={{ width: "500px", height: "200px" }} src={movie.poster_path} alt="Sunset in the mountains" />
                         <div className="px-6 py-4">
                             <div className="font-bold text-xl mb-2">{movie.title}</div>
                             <p className="text-gray-700 text-base">
@@ -97,18 +101,13 @@ export default function Movies() {
       </button>
                             </Link>
                             <button
-                                className="mt-5 bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                                className="mt-5 bg-red-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                                 type="button"
                                 style={{ transition: "all .15s ease" }}
                                 onClick={() => addFav(movie)}
                             >
                                 Add to Fav
       </button>
-                        </div>
-                        <div className="px-6 py-4">
-                            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#photography</span>
-                            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#travel</span>
-                            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">#winter</span>
                         </div>
                     </div>
                 })}

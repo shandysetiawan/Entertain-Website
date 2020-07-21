@@ -21,7 +21,7 @@ extend type Query {
 
 input InputMovie {
     title: String
-    overview: String
+    overview: String    
     poster_path: String
     popularity: String
     tags: String
@@ -107,7 +107,7 @@ const resolvers = {
         editMovie: async (parent, args, context, info) => {
 
             // console.log(args.movie.title)
-            console.log(args)
+
             const movieId = args.id
 
             const updateMovie = {
@@ -119,7 +119,7 @@ const resolvers = {
             }
 
             try {
-                // console.log('>>>>>>>>>>>', args)
+
                 const editData = await axios.put(`${baseURL}/movies/${movieId}`, updateMovie)
                 await redis.del('moviesCache')
 

@@ -1,28 +1,34 @@
 require('dotenv').config()
 const db = require('../configs/mongodb')
+console.log(db)
 
-const executed = (db, callback) => {
-    console.log('kesini')
-    db.createCollection("contacts",
-        {
-            'validator': {
-                '$or':
-                    [
-                        { 'phone': { '$type': "string" } },
-                        { 'email': { '$regex': /@mongodb\.com$/ } },
-                        { 'status': { '$in': ["Unknown", "Incomplete"] } }
-                    ]
-            }
+db.createCollection("Movies", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["title", "overview", "poster_path", "popularity", "tags"],
+            properties: {
+                title: {
+                    bsonType: "string",
+                    description: "title must be a string",
+                },
+                overview: {
+                    bsonType: "string",
+                    description: "overview must be a string",
+                },
+                poster_path: {
+                    bsonType: "string",
+                    description: "poster_path must be a string",
+                },
+                popularity: {
+                    bsonType: ["double"],
+                    description: "popularity must be a double",
+                },
+                tags: {
+                    bsonType: ["array", "string"],
+                    description: "tags must be an array of string",
+                },
+            },
         },
-        function (err, results) {
-            console.log("Collection created.");
-            callback(results, err);
-        }
-    );
-};
-executed(db, (result, err) => {
-    console.log(result)
-    console.log(err)
-
-})
-// process.exit()
+    },
+});

@@ -23,8 +23,8 @@ class MoviesController {
         const newMovie = {
             title: String(req.body.title),
             overview: String(req.body.overview),
-            poster_path: (req.body.poster_path),
-            popularity: req.body.popularity,
+            poster_path: String(req.body.poster_path),
+            popularity: parseFloat(req.body.popularity),
             tags: req.body.tags
         }
 
