@@ -17,7 +17,7 @@ import { ApolloClient, InMemoryCache, makeVar, gql } from '@apollo/client'
 const cache = new InMemoryCache()
 
 const client = new ApolloClient({
-    uri: 'http://localhost:4000',
+    uri: 'http://13.212.2.158:3000/',
     cache
 })
 
