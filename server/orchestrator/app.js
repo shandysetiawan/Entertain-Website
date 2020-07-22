@@ -1,6 +1,8 @@
+require('dotenv').config()
 const { ApolloServer, gql, makeExecutableSchema } = require('apollo-server')
 const moviesSchema = require('./schemas/moviesSchema')
 const tvSeriesSchema = require('./schemas/tvSeriesSchema')
+const port = process.env.PORT || 3000
 
 const typeDefs = gql`
 type Query
@@ -14,7 +16,7 @@ const schema = makeExecutableSchema({
 
 const server = new ApolloServer({ schema })
 
-server.listen()
+server.listen({ port })
     .then(({ url }) => {
         console.log(`Apollo running at ${url}`)
     })

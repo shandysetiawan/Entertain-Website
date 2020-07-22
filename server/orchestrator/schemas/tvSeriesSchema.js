@@ -2,7 +2,7 @@ const { gql } = require('apollo-server')
 const axios = require('axios')
 const Redis = require('ioredis')
 const redis = new Redis()
-const baseURL = 'http://localhost:3002'
+const baseURL = process.env.TV_SERIES_SERVICES_PATH
 
 const typeDefs = gql`
 type tvSeries {
