@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server')
 const axios = require('axios')
 const Redis = require('ioredis')
-const redis = new Redis()
+const redis = new Redis("redis://redis:6379")
 const baseURL = process.env.MOVIES_SERVICES_PATH
 
 const typeDefs = gql`

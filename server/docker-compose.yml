@@ -1,16 +1,27 @@
 version: "3"
 
 services:
-movies:
-  build: ./services/movies
-  ports: -"4001:3001"
-tv_series:
-  build: ./services/tv_series
-  ports: -"4002:3002"
-orchestrator: 
-  build: ./orchestrator
-  ports: -"4003:3000"
-mongo:
-  image: "mongo:4.0"
-  ports: -"17017:27017"
-  command: mongod
+  movies:
+    build: ./services/movies
+    ports: 
+      - "3001:3001"
+  tv_series:
+    build: ./services/tv_series
+    ports: 
+      - "3002:3002"
+  orchestrator: 
+    build: ./orchestrator
+    ports: 
+      - "3000:3000"
+  mongo:
+    image: "mongo:4.0"
+    ports: 
+      - "17017:27017"
+    command: mongod
+  redis:
+    image: "redis:6.0.6-alpine"
+    ports:
+      - "6379:6379"
+    command: redis-server
+    
+  
